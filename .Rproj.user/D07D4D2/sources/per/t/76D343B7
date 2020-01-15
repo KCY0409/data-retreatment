@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1579079323124.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2843132195",
+    "id" : "76D343B7",
+    "lastKnownWriteTime" : 1579082035,
+    "last_content_update" : 1579082035195,
+    "path" : "C:/Users/Kim Chang Yong/Desktop/R/데이터 전처리/dplyr package.R",
+    "project_path" : "dplyr package.R",
+    "properties" : {
+        "cursorPosition" : "109,0",
+        "scrollLine" : "94",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
