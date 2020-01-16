@@ -53,7 +53,7 @@ mutate(flights_smlg, rank = row_number(desc(arr_delay)))
 filter(flights, month == 1)
 # & == and 조건을 추가할 때 사용
 filter(flights, month == 1 & day == 1)
-filter(flights, month == 1 and day == 1)  #이건 안되네요.
+#filter(flights, month == 1 and day == 1)  #이건 안되네요.
 # | == or
 filter(flights, month == 11 | month == 12 )
 # %in%는 유용하게 사용하는 논리연산자로 왼쪽에 있는 벡터가 오른쪽 벡터의 데이터 중 어느 하나라도 맞으면 출력
@@ -107,3 +107,22 @@ flights_g <- group_by(flights, month)
 flights_g
 # group_by()에 의해 지정한 컬럼별 summarise()연산을 수행
 summarise(flights_g, mean = mean(dep_delay, na.rm = T), n = n())
+
+# 열 결합(Join) - left_join()
+flights2 <- select(flights, year:day, hour, origin, dest, tailnum, carrier)
+View(flights2)
+# left_join()은 왼쪽 데이터를 기준으로 하고, by로 지정된 컬럼이 같은 데이터임을 식별하는 key로 지정해
+# 오른쪽 데이터를 왼쪽 데이터에 결합하는 함수
+View(left_join(flights2, airlines, by = "carrier"))
+# muture(), match()등의 함수로 구현하려면 아래와 같음
+mutate(flights2, name = airlines$name[match(carrier, airlines$carrier)])
+# key 역할을 할 컬럼을 지정하지 않으면 양쪽 데이터에서 컬럼 이름이 같은 모든 컬럼을 key로 자동 지정
+View(left_join(flights2, weather))
+# 여러 컬럼이 key로써 가능할 때 명시적인 지정이 있으면 작성된 컬럼만 key로 동작
+left_join(flights2, planes, by="tailnum")
+# 여러 컬럼이 key로 동작했을 때 데이터가 잘못 되는 예
+left_join(flights2, planes)
+# 컬럼 이름이 다를 때는 아래와 같은 문법을 사용
+left_join(flights2, airports, c("dest" = "faa"))
+# rename()을 이용해 맞추는 방법도 가능
+left_join(flights2, rename(airports, dest = faa), by = "dest")
